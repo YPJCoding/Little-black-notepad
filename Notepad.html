@@ -94,18 +94,127 @@
         z-index: 2;
         border-top: 1px solid #e6e6e6;
       }
+      .todo-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        max-height: 420px;
+        overflow: auto;
+      }
+      .todo-list li {
+        position: relative;
+        font-size: 24px;
+        border-bottom: 1px solid #ededed;
+        height: 60px;
+        box-sizing: border-box;
+      }
+      .todo-list li:last-child {
+        border-bottom: none;
+      }
+      .todo-list .view .index {
+        position: absolute;
+        color: gray;
+        left: 10px;
+        top: 20px;
+        font-size: 16px;
+      }
+      .todo-list li label {
+        word-break: break-all;
+        padding: 15px 15px 15px 60px;
+        display: block;
+        line-height: 1.2;
+        transition: color 0.4s;
+      }
+      .todo-list li .destroy {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        bottom: 0;
+        width: 40px;
+        height: 40px;
+        margin: auto 0;
+        font-size: 30px;
+        color: #cc9a9a;
+        margin-bottom: 11px;
+        transition: color 0.2s ease-out;
+      }
+      .todo-list li .destroy:hover {
+        color: #af5b5e;
+      }
+      .todo-list li .destroy:after {
+        content: '×';
+      }
+      .todo-list li:hover .destroy {
+        display: block;
+      }
+      .footer {
+        color: #777;
+        padding: 10px 15px;
+        height: 20px;
+        text-align: center;
+        border-top: 1px solid #e6e6e6;
+      }
+      .footer:before {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 50px;
+        overflow: hidden;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
+          0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6,
+          0 17px 2px -6px rgba(0, 0, 0, 0.2);
+      }
+      .todo-count {
+        float: left;
+        text-align: left;
+      }
+      .todo-count strong {
+        font-weight: 300;
+      }
+      .clear-completed,
+      html .clear-completed:active {
+        float: right;
+        position: relative;
+        line-height: 20px;
+        text-decoration: none;
+      }
+      .clear-completed:hover {
+        text-decoration: underline;
+      }
+      @media screen and (-webkit-min-device-pixel-ratio: 0) {
+        .toggle-all,
+        .todo-list li .toggle {
+          background: none;
+        }
+
+        .todo-list li .toggle {
+          height: 40px;
+        }
+      }
+
+      @media (max-width: 430px) {
+        .footer {
+          height: 50px;
+        }
+
+        .filters {
+          bottom: 10px;
+        }
+      }
     </style>
-    <title>小黑记事本</title>
+    <title>Notepad</title>
   </head>
   <body>
     <!-- 主体区域 -->
     <section id="todoapp">
       <!-- 输入框 -->
       <header class="header">
-        <h1>小黑记事本</h1>
+        <h1>Notepad</h1>
         <input
           type="text"
-          v-model="inputValue"
           @keyup.enter="add"
           class="new-todo"
           autofocus
@@ -129,27 +238,19 @@
       <footer class="footer" v-show="list.length!=0">
         <span class="todo-count">
           <!-- v-if="list.length!=0" -->
-          <strong>{{list.length}}</strong> items left
+          <strong>{{ list.length }}</strong> items left
         </span>
         <button class="clear-completed" @click="clear">
           Clear
         </button>
       </footer>
     </section>
-    <footer class="info">
-      <p>
-        <a href="http://www.itheima.com"
-          ><img src="http://www.itheima.com/images/logo.png" alt=""
-        /></a>
-      </p>
-    </footer>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
       let app = new Vue({
         el: '#todoapp',
         data: {
-          list: ['写代码', '吃饭饭', '睡觉觉'],
-          inputValue: '好好学习，天天向上',
+          list: ['China', '中国', '中國'],
         },
         methods: {
           add: function () {
